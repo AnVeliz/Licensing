@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp1
+namespace LicensingApp
 {
     class Program
     {
@@ -36,9 +36,14 @@ namespace ConsoleApp1
                 var expirationDate = DateTime.Parse(Console.ReadLine());
                 Console.WriteLine($"The expiration date will be {expirationDate.ToString("ddd dd MMM yyyy h:mm tt zzz")}");
 
-                (new AppValidator.LicenseCryptors.RSALicenseCryptor()).CreateLicense(
-                    new AppValidator.LicenseCryptors.License() 
-                    { 
+                Console.WriteLine("Enter the application name the license should be issued for");
+                var appName = Console.ReadLine();
+                Console.WriteLine($"The license will be issued for '{appName}'");
+
+                (new AppValidator.LicenseCryptors.RSALicenseCryptor()).CreateCryptoLicense(
+                    new AppValidator.LicenseCryptors.License()
+                    {
+                        AppName = appName,
                         ExpirationDate = expirationDate,
                         PlatformHash = new AppValidator.PlatformReaders.PlatformInfoReader().GetPlatformHash()
                     },

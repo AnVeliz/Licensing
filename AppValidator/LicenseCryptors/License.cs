@@ -9,6 +9,7 @@ namespace AppValidator.LicenseCryptors
     [Serializable]
     public class License
     {
+        public string AppName { get; set; }
         public int PlatformHash { get; set; }
         public DateTime ExpirationDate { get; set; }
     }

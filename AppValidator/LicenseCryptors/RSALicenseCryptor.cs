@@ -20,7 +20,7 @@ namespace AppValidator.LicenseCryptors
             return stringWriter.ToString();
         }
 
-        public LicenseWrapper CreateLicense(License license, ILicenseSerializer serializer)
+        public LicenseWrapper CreateCryptoLicense(License license, ILicenseSerializer serializer)
         {
             var cryptoServiceProvider = new RSACryptoServiceProvider(keyLength);
             var publicKey = cryptoServiceProvider.ExportParameters(false);
