@@ -8,7 +8,6 @@ namespace AppValidator.LicenseCryptors
 {
     public interface ILicenseCryptor
     {
-        string EncryptLicense(License licenseText);
-        License DecryptLicense(string licenseText);
+        License DecryptLicense(string licenseText, ILicenseSerializer serializer);
     }
 }

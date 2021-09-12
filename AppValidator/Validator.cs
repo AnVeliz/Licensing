@@ -27,6 +27,7 @@ namespace AppValidator
         public enum ErrorCodes
         {
             Ok,
+            CorruptedLicense,
             ValidationFailure,
             ValidationDidntPass,
             LicenseExpired,
@@ -39,6 +40,11 @@ namespace AppValidator
             {
                 var licenseStringContent = _licenseProvider.GetLicenseText(_licenseDescriptor);
                 var license = _licenseCryptor.DecryptLicense(licenseStringContent);
+                if (license == null)
+                {
+                    return ErrorCodes.CorruptedLicense;
+                }
+
                 var platformHash = _platformReader.GetPlatformHash();
 
                 if (platformHash != license.PlatformHash)

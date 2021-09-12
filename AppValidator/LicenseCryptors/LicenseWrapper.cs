@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 namespace AppValidator.LicenseCryptors
 {
     [Serializable]
-    public class License
+    public class LicenseWrapper
     {
-        public int PlatformHash { get; set; }
-        public DateTime ExpirationDate { get; set; }
+        public License License { get; set; }
+        public string LicenseCryptoGuard { get; set; }
+        public string PublicKey { get; set; }
     }
 }

@@ -10,5 +10,8 @@ namespace AppValidator.LicenseCryptors
     {
         License Deserialize(string licenseText);
         string Serialize(License license);
+
+        LicenseWrapper DeserializeWrapper(string licenseText);
+        string SerializeWrapper(LicenseWrapper license);
     }
 }

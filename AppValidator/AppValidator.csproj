@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="LicenseCryptors\ILicenseCryptor.cs" />
     <Compile Include="LicenseCryptors\ILicenseSerializer.cs" />
+    <Compile Include="LicenseCryptors\LicenseWrapper.cs" />
     <Compile Include="LicenseCryptors\XMLLicenseSerializer.cs" />
     <Compile Include="LicenseProviders\FileLicenseDescriptor.cs" />
     <Compile Include="LicenseProviders\ILicenseDescriptor.cs" />

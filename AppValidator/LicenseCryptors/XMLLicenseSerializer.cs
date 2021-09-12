@@ -10,23 +10,43 @@ namespace AppValidator.LicenseCryptors
 {
     public class XMLLicenseSerializer: ILicenseSerializer
     {
+        private T XmlDeserialize<T>(string content)
+        {
+            var xmlSerializer = new XmlSerializer(typeof(T));
+            using (var textReader = new StringReader(content))
+            {
+                return (T)xmlSerializer.Deserialize(textReader);
+            }
+        }
+
+        private string XmlSerialize<T>(T obj)
+        {
+            var xmlSerializer = new XmlSerializer(typeof(T));
+            using (var textWriter = new StringWriter())
+            {
+                xmlSerializer.Serialize(textWriter, obj);
+                return textWriter.ToString();
+            }
+        }
+
         public License Deserialize(string licenseText)
         {
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(License));
-            using (var textReader = new StringReader(licenseText))
-            {
-                return (License)xmlSerializer.Deserialize(textReader);
-            }
+            return XmlDeserialize<License>(licenseText);
         }
 
         public string Serialize(License license)
         {
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(License));
-            using (var textWriter = new StringWriter())
-            {
-                xmlSerializer.Serialize(textWriter, license);
-                return textWriter.ToString();
-            }
+            return XmlSerialize(license);
+        }
+
+        public LicenseWrapper DeserializeWrapper(string licenseText)
+        {
+            return XmlDeserialize<LicenseWrapper>(licenseText);
+        }
+
+        public string SerializeWrapper(LicenseWrapper license)
+        {
+            return XmlSerialize(license);
         }
     }
 }
