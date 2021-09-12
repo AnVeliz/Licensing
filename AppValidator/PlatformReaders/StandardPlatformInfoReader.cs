@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppValidator.PlatformReaders
+namespace AppValidator.PlatformReaders 
 {
     public class PlatformInfoReader : IPlatformReader
     {
@@ -13,8 +13,13 @@ namespace AppValidator.PlatformReaders
             var systemClassManagement = new System.Management.ManagementClass(wmiClass).GetInstances();
             foreach (var managementObject in systemClassManagement)
             {
-                var res = managementObject[wmiProperty].ToString();
-                return res;
+                foreach(var property in managementObject.Properties)
+                {
+                    if (property.Name == wmiProperty)
+                    {
+                        return property?.ToString();
+                    }
+                }
             }
 
             return string.Empty;

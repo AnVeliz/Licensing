@@ -15,13 +15,15 @@ namespace AppValidator
         private ILicenseProvider _licenseProvider;
         private ILicenseDescriptor _licenseDescriptor;
         private ILicenseCryptor _licenseCryptor;
+        private ILicenseSerializer _licenseSerializer;
 
-        public Validator(IPlatformReader platformReader, ILicenseProvider licenseProvider, ILicenseDescriptor licenseDescriptor, ILicenseCryptor licenseCryptor)
+        public Validator(IPlatformReader platformReader, ILicenseProvider licenseProvider, ILicenseDescriptor licenseDescriptor, ILicenseCryptor licenseCryptor, ILicenseSerializer licenseSerializer)
         {
             _platformReader = platformReader;
             _licenseProvider = licenseProvider;
             _licenseDescriptor = licenseDescriptor;
             _licenseCryptor = licenseCryptor;
+            _licenseSerializer = licenseSerializer;
         }
 
         public enum ErrorCodes
@@ -39,7 +41,7 @@ namespace AppValidator
             try
             {
                 var licenseStringContent = _licenseProvider.GetLicenseText(_licenseDescriptor);
-                var license = _licenseCryptor.DecryptLicense(licenseStringContent);
+                var license = _licenseCryptor.DecryptLicense(licenseStringContent, _licenseSerializer);
                 if (license == null)
                 {
                     return ErrorCodes.CorruptedLicense;
